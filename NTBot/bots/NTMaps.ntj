@@ -1,0 +1,105 @@
+//NTTownMove.ntl l.302 : _townpoints[4]["portal2"] = new coord(5041,5045);coordonne?
+// NTRiverOfFlame.ntj entre 36 et 37 : 
+// 	var _relic = NTC_FindUnit(NTC_UNIT_ITEM, "Tier 4 relic");
+//	if (_relic)
+// 		NTC_PickSpecialItem(_relic)
+//
+// NTConfig.ntl l.272
+// var NTConfig_PODCHAOS
+//
+//
+// NTConfig_Tarkhnarb.ntl
+// var NTConfig_PODCHAOS = true;
+//
+//
+//
+// NTAttack.ntl l.853
+// if (pickitem && _attackcount > 0) { 
+//		if (NTConfig_PODCHAOS){
+// 			var _chaosKey = NTC_FindUnit(NTC_UNIT_ITEM, "Key Of Chaos");
+//			if (_chaosKey)
+// 				NTC_PickSpecialItem(_chaosKey)
+//		}
+//		NTSI_PickItems(); 
+//	}
+//
+//
+
+
+
+function NTMain()
+{
+	Include("libs/common/NTCommon.ntl");
+	NTC_IncludeLibs();
+	NTC_IncludeConfig("NTBot/char_configs");
+
+	NT_LoadConfig();
+	NTSI_LoadNIPFiles("NTBot/item_configs");
+
+	NTA_Initialize();
+
+	var _relic;
+	
+	if(!NTTM_CheckAct(5)) {
+		NTC_SendMsgToScript("NTBotGame.ntj", "NTTM_CheckAct()");
+		return;
+	}
+	NTTMGR_TownManager();
+
+	if(!NTTM_TownMoveXY(5122, 5087))
+		Print("Echec");
+	if(!NTTM_TownMoveXY(5054, 5080))
+		Print("Echec");
+	if(!NTTM_TownMoveXY(5049, 5062))
+		Print("Echec");
+	Delay(500);
+	//ClickMap(NTC_CLICK_LDOWN, NTC_SHIFT_NONE, 5041,5045);
+	//NTTM_TownMoveXY(5041, 5045);
+	Delay(500);
+	var _unit = NTC_FindUnit(NTC_UNIT_OBJECT, "The Ancient's Temple (Requires Level 80)");
+	if (_unit)
+		NTC_DoClick(NTC_CLICK_LDOWN, NTC_SHIFT_NONE, _unit);
+	Delay(2000);
+	// find relic id
+
+	if(!NT_UseRelic()){
+		//NTC_SendMsgToScript("NTBotGame.ntj", "NT_UseRelic() : no relics");
+		NTC_SendMsgToScript("NTBotGame.ntj", "SCRIPT_END");
+		//return;
+	}
+
+	Delay(1000);
+
+	NTP_DoPrecast();
+	if(!NTA_ClearLevel()) {
+		NTC_SendMsgToScript("NTBotGame.ntj", "NTA_ClearLevel()");
+		return;
+	}
+	// maxgametime = 300 for sorc ?
+	NTC_SendMsgToScript("NTBotGame.ntj", "SCRIPT_END");
+}
+
+function NT_UseRelic(){
+	var _items = me.GetItems();
+	SetUIState(0x01, true); // open inventory
+	Delay(500);
+	
+	for(i = 0 ; i < _items.length ; i++) {
+		if(_items[i].itemloc == 0){
+			Print("Item : "+i+" : "+_items[i]+_items[i].name);
+			Delay(1000);
+		}
+		if(_items[i].name == "Tier 1 Relic" &&_items[i].itemloc == 0 ) {
+			Print("Found relic : "+_items[i].name + ";" + i);
+			me.ClickItem (1, _items[i]);
+			Delay(1000);
+			SetUIState(0x01, false); // close inventory
+			return true;
+		}
+			//
+		//Print("Item : "+i+" : "+_items[i]+_items[i].name);
+		//Delay(1000);
+	}
+	SetUIState(0x01, false); // close inventory
+	return false;
+}
