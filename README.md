@@ -1,5 +1,5 @@
 # D2Etal_PoD
-Custom D2Etal bot working on Path of Diablo private server
+Custom D2Etal bot working on Path of Diablo private server (Javascript)
 
 
 
