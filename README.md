@@ -2,7 +2,7 @@
 Custom D2Etal bot working on Path of Diablo private server (Javascript)
 
 Same functionalities as the original D2Etal bot and more, for example :
- - team botting for early ladders with multiple classes, autofollow ... with NTHelper
+ - team botting for early ladders with multiple classes, autofollow, swith spells when out of mana ... with NTHelper
  - Bot can teleport with necro / druid too
  - Map script (not working well)
  - Take custom mod items (OOCs, map keys ...)
