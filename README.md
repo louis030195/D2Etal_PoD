@@ -29,3 +29,6 @@ Improvement to do in importance order :
  - Make countess script works
  - Find why the bot delete his merc sometimes(very strange bug btw ...)
  - Any other ideas ?
+
+
+I'll probably improve it before next PoD season
