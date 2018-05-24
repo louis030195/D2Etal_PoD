@@ -15,6 +15,7 @@ function NTMain(){
 			Print("test skill " + i);
 			Delay(1000);
 	}*/
+	//Print("skill : "+me.GetSkill(NTC_HAND_RIGHT));
 	
 	//Print("teleport " + NTC_GetSkillLevel(53));
 

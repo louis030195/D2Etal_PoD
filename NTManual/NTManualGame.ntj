@@ -26,6 +26,12 @@ function NTMain()
 	//Delay(2000);
 	//Say("SKILL : "+me.GetSkill(NTC_HAND_RIGHT));
 
+	//_items = me.GetItems();
+	//for(i = 0; i < _items.length; i++) {
+	//	Print("Items : " + _items[i].classid + " | " + _items[i].x + " | " + _items[i].y);
+	//	Delay(1000);
+	//}
+
 	if(NTConfig_HostileHandler)
 		Load("NTBot/tools/NTHostHandler.ntj");
 		
